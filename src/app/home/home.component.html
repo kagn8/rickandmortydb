@@ -1,0 +1,89 @@
+
+
+
+<div class="home">
+  <input
+    type="text"
+    class="search"
+    name="testoRicerca"
+    [(ngModel)]="testoRicerca"
+    (input)="ricerca()"
+    placeholder="Search"
+  />
+
+</div>
+
+<div *ngIf="loading">
+  <p>sto caricando dio merda</p>
+</div>
+<div class="main-home">
+  <div class="head char-list">
+    <p>Img:</p>
+    <p>Name:</p>
+    <p>Origin:</p>
+    <p></p>
+  </div>
+  <nav>
+    <button (click)="getFav()" class="details">Get Fav</button>
+    <div class="large">
+      <button
+        (click)="getAllCharPage(currentPage - 1)"
+        class="details"
+        *ngIf="prev"
+      >
+      <span class="material-symbols-outlined">
+        arrow_back_ios_new
+        </span>
+        Prev page
+      </button>
+      <button
+        (click)="getAllCharPage(currentPage + 1)"
+        class="details"
+        *ngIf="next"
+      >
+        Next page
+        <span class="material-symbols-outlined">
+          arrow_forward_ios
+          </span>
+      </button>
+    </div>
+    <button (click)="getHome()" class="details">Get Home</button>
+    </nav>
+  <div *ngIf="!loading" (click)="dettagli = false; ep = false">
+    <div *ngFor="let p of home" class="char-list">
+      <img [src]="p.image" alt="" class="img-char" />
+      <p>{{ p.name }}</p>
+      <p>{{ p.origin.name }}</p>
+      <span class="flex">
+        <button (click)="getOne(p.id)" class="details">Details</button>
+        <span class="material-symbols-outlined" (click)="singolo = p; addToFav() "> favorite </span>
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="dettagli" class="modal-char">
+    <img [src]="singolo.image" alt="" class="img-char" />
+    <h2>Id:{{ singolo.id }}</h2>
+    <h1>Name: {{ singolo.name }}</h1>
+    <p>Origin: {{ singolo.origin.name }}</p>
+    <p>Status: {{ singolo.status }}</p>
+    <p>Species: {{ singolo.species }}</p>
+    <p>Actual position: {{ singolo.location.name }}</p>
+
+    <span
+      ><button (click)="dettagli = !dettagli; ep = !ep" class="details">
+        Appears in</button
+      ><button (click)="dettagli = !dettagli" class="details">
+        Close
+      </button></span
+    >
+  </div>
+</div>
+
+<div *ngIf="ep" class="modal-char">
+  <img [src]="singolo.image" alt="" class="img-char" />
+  <h1>Name: {{ singolo.name }}</h1>
+  <p>Appears in episodes:</p>
+  <p class="episode-list">{{ episodeList }};</p>
+  <button (click)="ep = !ep" class="details">Close</button>
+</div>

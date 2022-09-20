@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap');
+body{
+    background-image: url("./assets/img/1223284.jpg");
+    font-family: 'Patrick Hand SC', cursive;
+    font-size: 1.1rem;
+    font-weight: bold;
+    min-height: 100vh;
+}

@@ -1,0 +1,145 @@
+.search {
+  background-color: aqua;
+  border-radius: 100px;
+  width: 50vw;
+  height: 50px;
+  margin: auto auto;
+  padding-left: 15px;
+  border: none;
+  box-shadow: 0px 5px 15px 5px rgba(143, 250, 101, 0.58);
+  border-bottom: 50px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.main-home {
+  width: 50vw;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.char-list {
+  display: flex;
+  background-color: #22a2bd;
+  margin: 25px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 100px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid black;
+  -webkit-box-shadow: 0px 0px 16px 3px rgba(143, 250, 101, 0.58);
+  box-shadow: 0px 0px 16px 3px rgba(143, 250, 101, 0.58);
+  .img-char {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    &:hover {
+      transform: scale(3.5);
+      box-shadow: 0px 0px 16px 3px rgba(143, 250, 101, 0.58);
+    }
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .material-symbols-outlined {
+    cursor: pointer;
+    &:hover {
+      font-variation-settings: "FILL" 1;
+    }
+  }
+}
+.details {
+  border-radius: 100px;
+  border: none;
+  height: 30px;
+  font-family: "Patrick Hand SC", cursive;
+  cursor: pointer;
+  transition: box-shadow 1s ease-in-out;
+  font-weight: bold;
+  margin-right: 5px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+
+  &:hover {
+    -webkit-box-shadow: 0px 0px 16px 3px rgba(143, 250, 101, 0.58);
+    box-shadow: 0px 0px 16px 3px rgba(143, 250, 101, 0.58);
+    transition: box-shadow 1s ease-in-out;
+    transform: scale(2);
+  }
+}
+.large{
+    display: flex;
+}
+
+.modal-char {
+  height: 55vh;
+  width: 55vw;
+  background-image: url("../../assets/img/portal-rick-and-morty.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  top: 25vh;
+  left: 25vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: rotation 0.2s 1 linear;
+  text-shadow: 2px 2px 0 #22a2bd, 2px -2px 0 #22a2bd, -2px 2px 0 #22a2bd,
+    -2px -2px 0 #22a2bd, 2px 0px 0 #22a2bd, 0px 2px 0 #22a2bd,
+    -2px 0px 0 #22a2bd, 0px -2px 0 #22a2bd, 2px 2px 2px rgba(0, 0, 0, 0);
+  h1 {
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+  }
+  .img-char {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    &:hover {
+      transform: scale(3);
+    }
+  }
+  .episode-list {
+    display: flex;
+    width: 25vw;
+    margin: 0 auto;
+    justify-content: space-around;
+    margin-bottom: 15px;
+  }
+  ::before{
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+  }
+}
+nav{
+    display: flex;
+    justify-content: space-around;
+}
+
+@keyframes rotation {
+  from {
+    transform: scale(0) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
