@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { Episode } from '../episode';
 import { Personaggio } from '../personaggio';
 import { ServService } from '../serv.service';
 
@@ -7,11 +8,17 @@ import { ServService } from '../serv.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges{
   constructor(private serv: ServService) {}
 
   ngOnInit(): void {
     this.getAllCharPage(this.currentPage);
+    this.serv.favS
+    localStorage.clear()
+  }
+  ngOnChanges(): void {
+    this.serv.favS
+    console.log(this.serv.favS);
   }
 
   currentPage: number = 1;
@@ -27,13 +34,13 @@ export class HomeComponent implements OnInit {
 
   home: Personaggio[] = [];
 
-  fav: Personaggio[] = [];
+  fav: Personaggio[] = this.serv.favS
 
   singolo!: Personaggio;
 
   ep = false;
 
-  favArr:number[] =[];
+  favArr:boolean[] =[];
 
   episodeList: string = ' '
 
@@ -45,6 +52,14 @@ export class HomeComponent implements OnInit {
     this.home = [];
     this.serv.getCharForPage(page).subscribe((res: any) => {
       this.home = res.results;
+      this.favArr=[]
+      for (const el of res.results) {
+        this.checkFav(el)
+        
+      }
+      // console.log(this.favArr);
+      
+
       if (page <= 1) {
         this.prev = false;
         this.next = true;
@@ -60,20 +75,35 @@ export class HomeComponent implements OnInit {
       this.loading = false;
     });
   }
+  s:string =""
+
   getOne(id: number) {
     return this.serv.getSingle(id).subscribe((res: any) => {
       this.singolo = res
       this.episodeList = ''
       this.singolo.episode.forEach((e: string) => {
         if (e.length == 41) {
-          this.episodeList += e.slice(40, 41);
+         this.episodeList += e.slice(40, 41) + ",";
         } else if (e.length == 42) {
-          this.episodeList += e.slice(40, 42);
+         this.episodeList += e.slice(40, 42) + ",";
         }
+        
       });
-
+      this.episodeList=this.episodeList.slice(0, -1)
       this.dettagli = true;
     });
+  }
+  episode:any[] =[]
+  getEpisodeList(){
+    this.serv.getEpisode(this.episodeList).subscribe((res:any)=> {
+      for (const ex of res) {
+        
+        this.episode.push(ex)
+      }
+    }
+    
+    )
+    console.log(this.episode);
   }
 
   ricerca(): any {
@@ -85,14 +115,16 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  addToFav(){
+  addToFav(i:number){
+    this.favArr[i] = !this.favArr[i]
+
     if (this.fav.find(e=> e.id == this.singolo.id)) {
-      this.fav.splice(this.fav.indexOf(this.singolo), 1);
-      this.favArr.splice(this.favArr.indexOf(this.singolo.id), 1);
+      this.fav.splice(this.serv.favS.indexOf(this.singolo), 1);
+      localStorage.removeItem("fav" +String(this.singolo.id))
       
-      console.log(this.favArr);
-      
-    }else {this.fav.push(this.singolo);  this.favArr.push(this.singolo.id); console.log(this.favArr);}
+    }else {this.serv.favS.push(this.singolo); 
+      localStorage.setItem("fav" +String(this.singolo.id), String(this.singolo.id))
+      }
   }
   
   getFav(){
@@ -105,5 +137,14 @@ export class HomeComponent implements OnInit {
   }
   getHome(){
     this.getAllCharPage(1);
+  }
+
+
+  checkFav(singolo:Personaggio){
+  
+    if (localStorage.getItem("fav"+singolo.id)) {
+    
+      return true
+    }else return false
   }
 }

@@ -50,13 +50,14 @@
     <button (click)="getHome()" class="details">Get Home</button>
     </nav>
   <div *ngIf="!loading" (click)="dettagli = false; ep = false">
-    <div *ngFor="let p of home" class="char-list">
+    <div *ngFor="let p of home; let i=index" class="char-list">
       <img [src]="p.image" alt="" class="img-char" />
       <p>{{ p.name }}</p>
       <p>{{ p.origin.name }}</p>
       <span class="flex">
         <button (click)="getOne(p.id)" class="details">Details</button>
-        <span class="material-symbols-outlined" (click)="singolo = p; addToFav() "> favorite </span>
+        <span class="material-symbols-outlined" (click)="singolo = p; addToFav(i) " *ngIf="!checkFav(p)"> favorite </span>
+        <span class="material-symbols-outlined fillato" (click)="singolo = p; addToFav(i) " *ngIf="checkFav(p)"> favorite </span>
       </span>
     </div>
   </div>
@@ -71,7 +72,7 @@
     <p>Actual position: {{ singolo.location.name }}</p>
 
     <span
-      ><button (click)="dettagli = !dettagli; ep = !ep" class="details">
+      ><button (click)="dettagli = !dettagli; ep = !ep; getEpisodeList()" class="details">
         Appears in</button
       ><button (click)="dettagli = !dettagli" class="details">
         Close
@@ -84,6 +85,10 @@
   <img [src]="singolo.image" alt="" class="img-char" />
   <h1>Name: {{ singolo.name }}</h1>
   <p>Appears in episodes:</p>
-  <p class="episode-list">{{ episodeList }};</p>
+  <div class="container">
+  <div *ngFor="let item of episode" class="listOfEpisode">
+   <span>{{item.episode}}: {{item.name}}</span>
+  </div>
+</div>
   <button (click)="ep = !ep" class="details">Close</button>
 </div>

@@ -61,6 +61,10 @@
     }
   }
 }
+
+.fillato{
+  font-variation-settings: "FILL" 1;
+}
 .details {
   border-radius: 100px;
   border: none;
@@ -133,6 +137,20 @@
 nav{
     display: flex;
     justify-content: space-around;
+}
+.container{
+  overflow-y: scroll;
+  height: 250px;
+  width: 400px;
+}
+.listOfEpisode{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+ 
+  
 }
 
 @keyframes rotation {
