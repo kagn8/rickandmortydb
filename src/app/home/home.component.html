@@ -14,7 +14,7 @@
 </div>
 
 <div *ngIf="loading">
-  <p>sto caricando dio merda</p>
+  <p>Carimcamento in corso...</p>
 </div>
 <div class="main-home">
   <div class="head char-list">
@@ -66,6 +66,9 @@
     <img [src]="singolo.image" alt="" class="img-char" />
     <h2>Id:{{ singolo.id }}</h2>
     <h1>Name: {{ singolo.name }}</h1>
+    <button (click)="dettagli = !dettagli" class="details">
+      Close
+    </button>
     <p>Origin: {{ singolo.origin.name }}</p>
     <p>Status: {{ singolo.status }}</p>
     <p>Species: {{ singolo.species }}</p>
@@ -74,9 +77,7 @@
     <span
       ><button (click)="dettagli = !dettagli; ep = !ep; getEpisodeList()" class="details">
         Appears in</button
-      ><button (click)="dettagli = !dettagli" class="details">
-        Close
-      </button></span
+      ></span
     >
   </div>
 </div>
@@ -85,10 +86,11 @@
   <img [src]="singolo.image" alt="" class="img-char" />
   <h1>Name: {{ singolo.name }}</h1>
   <p>Appears in episodes:</p>
+  <button (click)="ep = !ep" class="details">Close</button>
   <div class="container">
-  <div *ngFor="let item of episode" class="listOfEpisode">
-   <span>{{item.episode}}: {{item.name}}</span>
+  <div *ngFor="let item of episode, let i=index" class="listOfEpisode">
+   <span *ngIf="i>0 && episode.length>1">{{item.episode}}: {{item.name}}</span>
+   <span *ngIf="episode.length==1">{{item.episode}}: {{item.name}}</span>
   </div>
 </div>
-  <button (click)="ep = !ep" class="details">Close</button>
 </div>

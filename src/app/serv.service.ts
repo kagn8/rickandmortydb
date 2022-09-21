@@ -29,9 +29,7 @@ export class ServService {
   }
 
   getCharByName(name:string){
-
       return this.http.get(this.apiUrlR + name)
-
   }
 
   favS:Personaggio[] =[]

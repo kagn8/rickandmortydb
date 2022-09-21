@@ -95,15 +95,21 @@ export class HomeComponent implements OnInit, OnChanges{
   }
   episode:any[] =[]
   getEpisodeList(){
+    this.episode=[]
     this.serv.getEpisode(this.episodeList).subscribe((res:any)=> {
-      for (const ex of res) {
-        
-        this.episode.push(ex)
+      if (res instanceof Object) {
+        this.episode.push(res)
+      }
+      if(res instanceof Array){
+        for (const ex of res) {
+          this.episode.push(ex)
+          console.log(ex);
+        }
       }
     }
     
     )
-    console.log(this.episode);
+    console.log(this.episode + "112");
   }
 
   ricerca(): any {
