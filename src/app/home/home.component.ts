@@ -1,4 +1,5 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, OnChanges, ErrorHandler } from '@angular/core';
 import { Episode } from '../episode';
 import { Personaggio } from '../personaggio';
 import { ServService } from '../serv.service';
@@ -15,10 +16,12 @@ export class HomeComponent implements OnInit, OnChanges{
     this.getAllCharPage(this.currentPage);
     this.serv.favS
     localStorage.clear()
+    // console.log(this.Err.error);
+
+    
+    
   }
   ngOnChanges(): void {
-    this.serv.favS
-    console.log(this.serv.favS);
   }
 
   currentPage: number = 1;
@@ -57,7 +60,7 @@ export class HomeComponent implements OnInit, OnChanges{
         this.checkFav(el)
         
       }
-      // console.log(this.favArr);
+
       
 
       if (page <= 1) {
@@ -103,21 +106,29 @@ export class HomeComponent implements OnInit, OnChanges{
       if(res instanceof Array){
         for (const ex of res) {
           this.episode.push(ex)
-          console.log(ex);
         }
       }
     }
     
     )
-    console.log(this.episode + "112");
   }
-
+message:string="Errore"
+errore:boolean=false
   ricerca(): any {
+    this.home =[]
     this.serv.getCharByName(this.testoRicerca).subscribe(
       (res: any) => {
-        this.home = res.results;
-      },
-      (error) => (this.home = [])
+        this.errore=false
+        console.log(res.status);
+        console.log(res.body.results);
+        this.home = res.body.results;
+      },(error )=>{
+        console.log(error.status);
+        if(error.status == 404){
+          this.errore = true
+        }
+      }
+
     );
   }
 

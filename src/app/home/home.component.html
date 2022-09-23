@@ -16,6 +16,7 @@
 <div *ngIf="loading">
   <p>Carimcamento in corso...</p>
 </div>
+
 <div class="main-home">
   <div class="head char-list">
     <p>Img:</p>
@@ -49,6 +50,9 @@
     </div>
     <button (click)="getHome()" class="details">Get Home</button>
     </nav>
+    <div *ngIf="errore" >
+      <p class="char-list">nessun elemento trovato</p>
+    </div>
   <div *ngIf="!loading" (click)="dettagli = false; ep = false">
     <div *ngFor="let p of home; let i=index" class="char-list">
       <img [src]="p.image" alt="" class="img-char" />

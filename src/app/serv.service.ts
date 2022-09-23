@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Personaggio } from './personaggio';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,6 @@ export class ServService {
   getCharForPage(page:number){
     return this.http.get(this.apiUrlP + page)
   }
-  
-  tuttiIPersonaggi:object[] = []
-
   getSingle(id:number){
     return this.http.get(this.apiUrl + id)
   }
@@ -29,7 +27,13 @@ export class ServService {
   }
 
   getCharByName(name:string){
-      return this.http.get(this.apiUrlR + name)
+      return this.http.get(this.apiUrlR + name,  {observe: 'response',})
+      // .pipe(
+      //   catchError((err)=> {
+          
+      //     return throwError(err.message);
+      //   })
+      // )
   }
 
   favS:Personaggio[] =[]
